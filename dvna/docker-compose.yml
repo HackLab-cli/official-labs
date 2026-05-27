@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  app:
+    image: appsecco/dvna:sqlite
+    ports:
+      - "9090:9090"
+    environment:
+      MONGODB_URI: "mongodb://db:27017/dvna"
+      DB_MONGODB: "dvna"
+    depends_on:
+      - db
+    labels:
+      - "hacklab.lab=dvna"
+    networks:
+      - lab-net
+
+  db:
+    image: mongo:4.4
+    environment:
+      MONGO_INITDB_DATABASE: "dvna"
+    volumes:
+      - mongo-data:/data/db
+    labels:
+      - "hacklab.lab=dvna"
+    networks:
+      - lab-net
+
+volumes:
+  mongo-data:
+
+networks:
+  lab-net:
+    driver: bridge

@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  xxe-app:
+    image: jbarone/xxelab:latest
+    ports:
+      - "8080:80"
+    labels:
+      - "hacklab.lab=xxe-lab"
+    networks:
+      - lab-net
+
+networks:
+  lab-net:
+    driver: bridge

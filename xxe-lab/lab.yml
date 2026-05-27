@@ -1,0 +1,41 @@
+name: XXE Injection Lab
+version: "1.0"
+description: "Practice XML External Entity (XXE) injection attacks against a vulnerable web application with file upload and XML parsing"
+difficulty: intermediate
+author: hacklab
+tags:
+  - xxe
+  - xml
+  - injection
+  - web
+  - file-inclusion
+
+compose_file: docker-compose.yml
+
+wait_for: "http://localhost:8080"
+wait_secs: 30
+
+objectives:
+  - name: "Read /etc/passwd via XXE"
+    category: "xxe"
+    hints:
+      - "Upload an XML file with an external entity"
+      - "Use: <!ENTITY xxe SYSTEM \"file:///etc/passwd\">"
+
+  - name: "Perform SSRF via XXE"
+    category: "ssrf"
+    hints:
+      - "Use XXE to make requests to internal services"
+      - "Try: <!ENTITY xxe SYSTEM \"http://internal-service/\">"
+
+  - name: "Exfiltrate data via out-of-band XXE"
+    category: "xxe-oob"
+    hints:
+      - "Use a DTD to exfiltrate data externally"
+      - "Set up a listener and use parameter entities"
+
+  - name: "Exploit blind XXE with error messages"
+    category: "blind-xxe"
+    hints:
+      - "Trigger errors to leak file contents"
+      - "Use invalid XML to force error messages with entity values"

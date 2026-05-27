@@ -1,0 +1,49 @@
+name: OWASP WebGoat
+version: "1.0"
+description: "Learn web application security through OWASP's deliberately insecure application with guided lessons and challenges"
+difficulty: beginner
+author: hacklab
+tags:
+  - web
+  - owasp
+  - sqli
+  - xss
+  - authentication
+  - training
+
+image: webgoat/webgoat:latest
+port: 8080
+
+wait_for: "http://localhost:8080/WebGoat"
+wait_secs: 60
+
+objectives:
+  - name: "Complete the SQL Injection lesson"
+    category: "sqli"
+    hints:
+      - "Navigate to Injection Flaws in the menu"
+      - "Try UNION-based injection to extract data"
+
+  - name: "Exploit authentication bypass"
+    category: "authentication"
+    hints:
+      - "Check the Authentication Flaws section"
+      - "Look for password reset vulnerabilities"
+
+  - name: "Perform a cross-site scripting attack"
+    category: "xss"
+    hints:
+      - "Find input fields that reflect user input"
+      - "Try injecting JavaScript in the DOM XSS lesson"
+
+  - name: "Exploit insecure deserialization"
+    category: "deserialization"
+    hints:
+      - "Look for endpoints that accept serialized data"
+      - "Craft a malicious serialized object"
+
+  - name: "Bypass access controls"
+    category: "access-control"
+    hints:
+      - "Check for IDOR vulnerabilities"
+      - "Try modifying user IDs in API requests"

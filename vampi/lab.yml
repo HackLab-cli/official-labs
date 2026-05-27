@@ -1,0 +1,48 @@
+name: VAmPI - Vulnerable REST API
+version: "1.0"
+description: "Practice API security testing against a vulnerable REST API implementing OWASP API Security Top 10 vulnerabilities"
+difficulty: intermediate
+author: hacklab
+tags:
+  - api
+  - rest
+  - owasp
+  - authentication
+  - authorization
+
+image: erev0s/vampi:latest
+port: 5000
+
+wait_for: "http://localhost:5000"
+wait_secs: 30
+
+objectives:
+  - name: "Exploit Broken Object Level Authorization (BOLA)"
+    category: "bola"
+    hints:
+      - "Try accessing other users' resources by changing IDs"
+      - "Modify the user ID in GET /users/<id> requests"
+
+  - name: "Perform mass assignment attack"
+    category: "mass-assignment"
+    hints:
+      - "Try adding extra fields in POST requests"
+      - "Add 'admin': true to user creation payload"
+
+  - name: "Bypass authentication with weak JWT"
+    category: "authentication"
+    hints:
+      - "Check if JWT tokens are properly validated"
+      - "Try the 'none' algorithm attack"
+
+  - name: "Exploit excessive data exposure"
+    category: "data-exposure"
+    hints:
+      - "Check API responses for sensitive data"
+      - "Look for password hashes or PII in responses"
+
+  - name: "Perform rate limiting bypass"
+    category: "rate-limiting"
+    hints:
+      - "Try brute-forcing without being blocked"
+      - "Check if rate limiting is implemented"

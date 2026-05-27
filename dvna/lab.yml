@@ -1,0 +1,48 @@
+name: Damn Vulnerable NodeJS Application (DVNA)
+version: "1.0"
+description: "Practice Node.js specific vulnerabilities including prototype pollution, NoSQL injection, SSRF, and insecure deserialization"
+difficulty: intermediate
+author: hacklab
+tags:
+  - nodejs
+  - web
+  - nosqli
+  - ssrf
+  - deserialization
+  - prototype-pollution
+
+compose_file: docker-compose.yml
+
+wait_for: "http://localhost:9090"
+wait_secs: 45
+
+objectives:
+  - name: "Exploit NoSQL injection to bypass authentication"
+    category: "nosqli"
+    hints:
+      - "MongoDB queries can be manipulated with JSON objects"
+      - "Try: {\"$gt\": \"\"} in the password field"
+
+  - name: "Perform Server-Side Request Forgery (SSRF)"
+    category: "ssrf"
+    hints:
+      - "Look for URL fetching functionality"
+      - "Try accessing internal services like http://localhost:27017"
+
+  - name: "Exploit prototype pollution"
+    category: "prototype-pollution"
+    hints:
+      - "Check for object merging or deep copy functions"
+      - "Inject __proto__ properties to modify Object.prototype"
+
+  - name: "Execute code via insecure deserialization"
+    category: "deserialization"
+    hints:
+      - "Look for endpoints that deserialize user input"
+      - "Craft a malicious serialized Node.js object"
+
+  - name: "Exploit command injection in file processing"
+    category: "command-injection"
+    hints:
+      - "Check file upload or processing features"
+      - "Try injecting shell commands in filenames"

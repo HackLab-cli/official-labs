@@ -1,0 +1,49 @@
+name: Damn Vulnerable Web Application (DVWA)
+version: "1.0"
+description: "Practice common web vulnerabilities including SQL injection, XSS, CSRF, and file inclusion in a classic PHP/MySQL application"
+difficulty: beginner
+author: hacklab
+tags:
+  - web
+  - sqli
+  - xss
+  - csrf
+  - php
+  - owasp
+
+image: vulnerables/web-dvwa:latest
+port: 80
+
+wait_for: "http://localhost:80"
+wait_secs: 30
+
+objectives:
+  - name: "Bypass authentication using SQL injection"
+    category: "sqli"
+    hints:
+      - "The login page is vulnerable to SQL injection"
+      - "Try: admin' #"
+
+  - name: "Extract database contents via blind SQL injection"
+    category: "sqli"
+    hints:
+      - "Use the SQL Injection (Blind) page"
+      - "Try boolean-based or time-based techniques"
+
+  - name: "Execute a stored XSS attack"
+    category: "xss"
+    hints:
+      - "Look for input fields that store data"
+      - "Try injecting <script>alert('XSS')</script> in the guestbook"
+
+  - name: "Upload a webshell via file upload"
+    category: "file-upload"
+    hints:
+      - "The file upload doesn't validate file content"
+      - "Upload a PHP file with a reverse shell payload"
+
+  - name: "Exploit command injection to read /etc/passwd"
+    category: "command-injection"
+    hints:
+      - "The ping functionality passes input to shell"
+      - "Try: 127.0.0.1; cat /etc/passwd"

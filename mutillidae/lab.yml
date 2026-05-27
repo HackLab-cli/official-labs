@@ -1,0 +1,50 @@
+name: OWASP Mutillidae II
+version: "1.0"
+description: "Explore over 40 vulnerabilities including OWASP Top 10, with hints and solutions built into this deliberately vulnerable web application"
+difficulty: intermediate
+author: hacklab
+tags:
+  - web
+  - owasp
+  - sqli
+  - xss
+  - csrf
+  - authentication
+  - php
+
+image: webpwnized/mutillidae:latest
+port: 80
+
+wait_for: "http://localhost:80"
+wait_secs: 45
+
+objectives:
+  - name: "Exploit SQL injection to dump the database"
+    category: "sqli"
+    hints:
+      - "Try the login form or search functionality"
+      - "Use UNION SELECT to extract table names"
+
+  - name: "Perform session hijacking via XSS"
+    category: "xss"
+    hints:
+      - "Look for reflected XSS in search parameters"
+      - "Steal the session cookie with document.cookie"
+
+  - name: "Bypass authentication using LDAP injection"
+    category: "injection"
+    hints:
+      - "Find the LDAP authentication page"
+      - "Try: *)(uid=*))(|(uid=*"
+
+  - name: "Exploit XML External Entity (XXE) vulnerability"
+    category: "xxe"
+    hints:
+      - "Look for XML parsing functionality"
+      - "Inject a DOCTYPE with an external entity"
+
+  - name: "Perform CSRF attack to change admin password"
+    category: "csrf"
+    hints:
+      - "Create a malicious HTML page with a form"
+      - "Auto-submit the form to the password change endpoint"

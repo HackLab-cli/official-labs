@@ -1,0 +1,48 @@
+name: OWASP WrongSecrets
+version: "1.0"
+description: "Learn about secrets management vulnerabilities — hardcoded secrets, environment leaks, vault misconfigurations, and cloud credential exposure"
+difficulty: intermediate
+author: hacklab
+tags:
+  - secrets
+  - devsecops
+  - cloud
+  - configuration
+  - owasp
+
+image: commjoen/wrongsecrets:latest
+port: 8080
+
+wait_for: "http://localhost:8080"
+wait_secs: 45
+
+objectives:
+  - name: "Find the hardcoded password in the source code"
+    category: "hardcoded-secrets"
+    hints:
+      - "Check the application's source code or config files"
+      - "Look for credentials in application.properties"
+
+  - name: "Extract secrets from environment variables"
+    category: "env-leak"
+    hints:
+      - "Check for exposed environment endpoints"
+      - "Try /actuator/env if Spring Boot is used"
+
+  - name: "Exploit misconfigured vault access"
+    category: "vault-misconfiguration"
+    hints:
+      - "The app may have weak vault authentication"
+      - "Check for default credentials or bypass methods"
+
+  - name: "Find secrets in Docker layers"
+    category: "docker-secrets"
+    hints:
+      - "Inspect the Docker image history"
+      - "Use docker history to find build-time secrets"
+
+  - name: "Exploit cloud metadata endpoint"
+    category: "cloud-secrets"
+    hints:
+      - "Try accessing http://169.254.169.254/"
+      - "Cloud instances expose metadata at this IP"
